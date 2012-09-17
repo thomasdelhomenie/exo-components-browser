@@ -1,0 +1,83 @@
+
+		<ul class="breadcrumb">
+		  <li>
+			<a href="#" onclick="javascript:backHome()">Home</a> <span class="divider">/</span>
+		  </li>
+		  <li>
+			<a href="#">${component.key}</a>
+		  </li>
+		</ul>
+		
+		<div class="btn"><a href="@{export(key = component.key)}">Export</a></div>
+		
+		<div class="property-title">Key</div>
+		<div class="property-value"><div class="well">${component.key}</div></div>
+
+		<div class="property-title">Type</div>
+		<div class="property-value"><div class="well">${component.type ?: ''}</div></div>
+		
+		<div class="property-title">JMX Name</div>
+		<div class="property-value"><div class="well">${component.jmxName ?: ''}</div></div>
+
+		<div class="property-title">Description</div>
+		<div class="property-value"><div class="well">${component.description ?: ''}</div></div>
+
+		<div class="property-title">Plugins</div>
+		<div class="property-value"><div class="well">${component.plugins ?: ''}</div></div>
+
+		<div class="property-title">Component Plugins</div>
+		<div class="property-value"><div class="well">
+		<%
+			component.componentPlugins.each({ componentPlugin ->
+				if(componentPlugin == component.componentPlugins.first()) {
+					out.println("<ul>");
+				}
+				out.println("<li>Name : " + componentPlugin.name + "</li>")
+				out.println("<li>Type : " + componentPlugin.type + "</li>")
+				out.println("<li>SetMethod : " + componentPlugin.setMethod + "</li>")
+				out.println("<li>Description : " + componentPlugin.description + "</li>")
+				out.println("<li>InitParams : " + componentPlugin.initParams + "</li>")
+				out.println("<li>Priority : " + componentPlugin.priority + "</li>")
+				if(componentPlugin == component.componentPlugins.last()) {
+					out.println("</ul>")
+				}
+			})
+		%>
+		</div></div>
+
+		<div class="property-title">Listeners</div>
+		<div class="property-value"><div class="well">${component.listeners ?: ''}</div></div>
+
+		<div class="property-title">Init Params</div>
+		<div class="property-value"><div class="well">
+			<ul>
+			<%
+				component.initParams?.each({ valueParam ->
+					if(valueParam.value instanceof org.exoplatform.container.xml.ValueParam) {
+						out.println("<li>" + valueParam.key + " : " + valueParam.value + "</li>")	
+					} else if(valueParam.value instanceof org.exoplatform.container.xml.ValuesParam) {
+						out.println("<li>" + valueParam.key + " : ")
+						out.println("<ul>")
+						valueParam.value.values.each({ value ->
+							out.println("<li>" + value + "</li>")	
+						})
+						out.println("</ul>")
+						out.println("</li>")
+					} else if(valueParam.value instanceof org.exoplatform.container.xml.PropertiesParam) {
+						out.println("<li>" + valueParam.key + " : ")
+						out.println("<ul>")
+						valueParam.value.propertyIterator.each({ property ->
+							out.println("<li>" + property.name + " : " + property.value + "</li>")	
+						})
+						out.println("</ul>")
+						out.println("</li>")
+					} else if(valueParam.value instanceof org.exoplatform.container.xml.ObjectParameter) {
+						out.println("<li>" + valueParam.key + " : " + valueParam.value + "</li>")
+					}
+				})
+			%>
+			</ul>
+		</div></div>
+		
+		<div class="property-title">Configuration file</div>
+		<div class="property-value"><div class="well">${component.documentURL}</div></div>	
