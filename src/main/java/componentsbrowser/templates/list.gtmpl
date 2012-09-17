@@ -2,7 +2,6 @@
 		<table id="components-table" class="table table-bordered">
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="select-all"/></th>
 					<th>Key</th>
 					<th>Implementation</th>
 					<th>Action</th>
@@ -11,7 +10,6 @@
 			<tbody>
 				<% for (def component : components) { %>
 					<tr>
-						<td><input type="checkbox"/></td>
 						<td>${component.key}</td>
 						<td>${component.type}</td>
 						<td>
@@ -35,10 +33,9 @@ $(document).ready(function() {
 		"bStateSave": true,
 		"sPaginationType": "full_numbers",
 		"aoColumnDefs": [ 
-		  { "bSortable": false, "aTargets": [ 0, 3 ] }
+		  { "bSortable": false, "aTargets": [ 2 ] }
 		],
 		"aoColumns": [ 
-		  { "sClass": "column-checkbox", "sWidth": "15px" },
 		  { "sClass": "column-key" },
 		  { "sClass": "column-implementation" },
 		  { "sClass": "column-action", "sWidth": "40px" }
