@@ -30,6 +30,7 @@ $.fn.slideToRight = function(data) {
     transfer.animate({ 'margin-left': '0px' }, 300, function () {
 		//alert($('.previous').html());
         //$(this).parent().html(previous.html());
+        $('.frame_current').html(data);
 		$('.frame_next').html('');
     });
 }
