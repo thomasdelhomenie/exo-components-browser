@@ -5,6 +5,6 @@
 
 <script>
 $(document).ready(function() {
-	$('.components-main').jzLoad("Controller.list()",{});
+	$('#slider').jzLoad("Controller.list()",{});
 });
 </script>
